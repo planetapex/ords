@@ -205,7 +205,7 @@ EOF
 
 fi
 
-if [ "${FIRST_RUN}" != "true"  &&  "${RECONFIGURE_ORDS}" == "Yes"]; then
+if [ "${FIRST_RUN}" != "true"  &&  "${RECONFIGURE_ORDS}" == "Yes" ]; then
 
 echo "******************************************************************************"
   # echo "Reconfiguring ORDS based on the new values Provided" `date`
