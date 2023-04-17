@@ -10,7 +10,7 @@ services:
     #  image: ol8_ords:latest
     build:
       context: ./ords
-      dockerfile: ./ords/Dockerfile
+ #     dockerfile: ./ords/Dockerfile
     container_name: ol8_ords_con1
     #    environment:
     #      - USER=mike
