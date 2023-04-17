@@ -95,11 +95,19 @@ if [ ! -d ${CATALINA_BASE}/conf ]; then
   echo "******************************************************************************"
   echo "New CATALINA_BASE location." `date`
   echo "******************************************************************************"
-  cp -r ${CATALINA_HOME}/conf ${CATALINA_BASE}
-  cp -r ${CATALINA_HOME}/logs ${CATALINA_BASE}
-  cp -r ${CATALINA_HOME}/temp ${CATALINA_BASE}
-  cp -r ${CATALINA_HOME}/webapps ${CATALINA_BASE}
-  cp -r ${CATALINA_HOME}/work ${CATALINA_BASE}
+  if [ -f ${CATALINA_BASE}/conf ]; then
+    rm -f ${CATALINA_BASE}/conf
+  fi
+  mkdir -p ${CATALINA_BASE}/conf
+  mkdir -p ${CATALINA_BASE}/logs
+  mkdir -p ${CATALINA_BASE}/temp
+  mkdir -p ${CATALINA_BASE}/webapps
+  mkdir -p ${CATALINA_BASE}/work
+  cp -R ${CATALINA_HOME}/conf/* ${CATALINA_BASE}/conf/
+  cp -R ${CATALINA_HOME}/logs/* ${CATALINA_BASE}/logs/
+  cp -R ${CATALINA_HOME}/temp/* ${CATALINA_BASE}/temp/
+  cp -R ${CATALINA_HOME}/webapps/* ${CATALINA_BASE}/webapps/
+  cp -R ${CATALINA_HOME}/work/* ${CATALINA_BASE}/work/
 fi
 
 if [ ! -d ${CATALINA_BASE}/webapps/i ]; then
