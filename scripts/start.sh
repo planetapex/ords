@@ -27,7 +27,7 @@ echo "Check DB is available." `date`
 echo "******************************************************************************"
 export PATH=${PATH}:${JAVA_HOME}/bin
 export TNS_ADMIN=${TNS_ADMIN}
-export _JAVA_OPTIONS=${_JAVA_OPTS}
+export _JAVA_OPTIONS=${JAVA_OPTS}
 
 
 
