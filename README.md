@@ -34,6 +34,14 @@ $ tree
 $
 ```
 
+* Pre-requisites
+
+
+Since we will be using external host volume for persistent storage, the build expects it to owned by a group with the group ID of 1042. Please complete the steps here
+
+[Docker : Host File System Permissions for Container Persistent Host Volumes](https://oracle-base.com/articles/linux/docker-host-file-system-permissions-for-container-persistent-host-volumes)
+
+
 
 Buiding Image & loggin
 https://forums.docker.com/t/capture-ouput-of-docker-build-into-a-log-file/123178 
@@ -51,11 +59,18 @@ docker build --no-cache --progress=plain -t ol8_ords:latest . 2>&1 | tee build.l
 
 
 
-If you are using an external host volume for persistent storage, the build expects it to owned by a group with the group ID of 1042. This is described here.
-
 ```
 docker network create ords_network
 ```
+
+* Creating  volume for the docker containers
+
+
+mkdir -p /home/docker_user/volumes/ol_ords_tomcat_nginx_config 
+docker volume create --driver local \
+    --opt type=none \
+    --opt device=/home/docker_user/volumes/ol_ords_tomcat_nginx_config \
+    --opt o=bind ords_server_config_vol
 
 
 
@@ -113,4 +128,4 @@ For JDK installation we have following options
 2) using targ.gz
 3) using rpm install agains JAVA_HOME automatically set
 
-[Docker : Host File System Permissions for Container Persistent Host Volumes](https://oracle-base.com/articles/linux/docker-host-file-system-permissions-for-container-persistent-host-volumes)
+

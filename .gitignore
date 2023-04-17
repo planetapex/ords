@@ -1,4 +1,4 @@
 *.log
-.vscode
+.env
 /software/*
 !/software/*.txt
