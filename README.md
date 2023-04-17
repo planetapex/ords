@@ -33,7 +33,7 @@ Buiding Image & loggin
 https://forums.docker.com/t/capture-ouput-of-docker-build-into-a-log-file/123178 
 
 ```
-docker build --no-cache --progress=plain ol8_ords:latest . 2>&1 | tee build.log
+docker build --no-cache --progress=plain -t ol8_ords:latest . 2>&1 | tee build.log
 
 ```
 
@@ -79,6 +79,14 @@ GATEWAY_USER_PASSWORD=Pandora_1234
 
 ```
 
+# Development Related:
 
+For JDK installation we have following options
+1) installing Package java-17-openjdk in install_os_pacakges.sh 
+  and thus JAVA_HOME already set, comment out setting Manually JAVA_HOME in dockerfile ENV JAVA_HOME
+  and remove downloading the rpm file
+  so commentout code in ords_software_install.sh
+2) using targ.gz
+3) using rpm install agains JAVA_HOME automatically set
 
 [Docker : Host File System Permissions for Container Persistent Host Volumes](https://oracle-base.com/articles/linux/docker-host-file-system-permissions-for-container-persistent-host-volumes)

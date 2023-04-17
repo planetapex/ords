@@ -15,6 +15,12 @@
 #
 # Example build and run. Assumes Docker network called "my_network" to connect to DB.
 #
+
+# For JDK installation we have following options
+#1) installing Package java-17-openjdk in install_os_pacakges.sh and thus JAVA_HOME already set
+# so commentout code in ords_software_install.sh
+#2) using targ.gz
+#3) using rpm install agains JAVA_HOME automatically set
 # docker build -t ol8_ords:latest .
 # docker build --squash -t ol8_ords:latest .
 # Podman
@@ -54,7 +60,7 @@ ENV JAVA_SOFTWARE="jdk-17_linux-x64_bin.rpm"          \
     KEYSTORE_DIR="/u01/keystore"                                               \
     ORDS_HOME="/u01/ords"                                                      \
     ORDS_CONF="/u01/config/ords"                                               \
-    JAVA_HOME="/u01/java/latest"                                               \
+    #JAVA_HOME="/u01/java/latest"                                               \
     CATALINA_HOME="/u01/tomcat/latest"                                         \
     CATALINA_BASE="/u01/config/instance1"  \
     TNS_ADMIN="/u01/oracle/network/admin"
