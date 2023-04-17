@@ -87,7 +87,7 @@ ENV DB_HOSTNAME="localhost"                                           \
     JAVA_OPTS="-Dconfig.url=${ORDS_CONF} -Ddb.wallet.cache=${ORDS_CONF}/wallet_cache  -Xms1024M -Xmx1024M"
 #-Duser.timezone=UTC -Ddb.wallet.cache=wallet_cache- -Dsecurity.forceHTTPS=true -Dorg.eclipse.jetty.server.Request.maxFormContentSize=3000000
 
-RUN mkdir ${SOFTWARE_DIR}
+RUN mkdir -p ${SOFTWARE_DIR}
 
 ADD https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm ${SOFTWARE_DIR}
 ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.73/bin/apache-tomcat-9.0.73.tar.gz ${SOFTWARE_DIR}
