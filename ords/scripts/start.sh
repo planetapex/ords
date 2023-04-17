@@ -177,8 +177,9 @@ if [ "${FIRST_RUN}" == "true" ]; then
   ${SYS_USER_PASSWORD}
   ${ORDS_USER_PASSWORD}
   ${GATEWAY_USER_PASSWORD}
-  EOF
-  
+EOF
+    
+
 
   #  ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb \
   #        --admin-user ${SYS_USER} \
@@ -217,11 +218,11 @@ echo "**************************************************************************
   # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set  db.wallet.zip.service ${DB_SERVICE_NAME}
   # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set plsql.gateway.mode proxied
 
-  ${ORDS_HOME}/bin/ords --config ${ORDS_CONF}/ install adb --admin-user ${SYS_USER} --db-user ${ORDS_USER} --gateway-user ${GATEWAY_USER} --wallet ${TNS_ADMIN}/wallet.zip --wallet-service-name ${DB_SERVICE_NAME} --feature-sdw true --log-folder ${CONFIG_HOME}/logs --password-stdin <<EOF
-  ${SYS_USER_PASSWORD}
-  ${ORDS_USER_PASSWORD}
-  ${GATEWAY_USER_PASSWORD}
-  EOF
+    ${ORDS_HOME}/bin/ords --config ${ORDS_CONF}/ install adb --admin-user ${SYS_USER} --db-user ${ORDS_USER} --gateway-user ${GATEWAY_USER} --wallet ${TNS_ADMIN}/wallet.zip --wallet-service-name ${DB_SERVICE_NAME} --feature-sdw true --log-folder ${CONFIG_HOME}/logs --password-stdin <<EOF
+    ${SYS_USER_PASSWORD}
+    ${ORDS_USER_PASSWORD}
+    ${GATEWAY_USER_PASSWORD}
+EOF
 
   #  ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb \
   #        --admin-user ${SYS_USER} \
