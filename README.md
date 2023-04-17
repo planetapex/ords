@@ -28,7 +28,20 @@ $ tree
 $
 ```
 
+
+Buiding Image
+
+```
+docker build --progress=plain  -t ol8_ords:latest . | tee /logs/build.log
+
+```
+
+
 If you are using an external host volume for persistent storage, the build expects it to owned by a group with the group ID of 1042. This is described here.
+
+
+
+
 
 
 ```

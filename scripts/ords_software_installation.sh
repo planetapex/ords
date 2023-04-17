@@ -75,6 +75,7 @@ n=1;
 for name in ${SOFTWARE_DIR}/apex*.zip
 do
  new=$(printf "apex%01d.zip" ${n})
+ echo "new file name ${new} ${n}"
  mv -i -- "$name" "$new"
  n=$((n+1))
 done
