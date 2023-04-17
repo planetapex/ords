@@ -24,9 +24,9 @@ services:
       - 8443:8443
     volumes:
       - ords_server_config_vol:/u01/config
-    labels:
+#    labels:
       # labels in Compose file instead of Dockerfile
-      - instance-name: ol8_ords_con1
+ #     - instance-name: ol8_ords_con1
 
 networks:
   ords_network:
