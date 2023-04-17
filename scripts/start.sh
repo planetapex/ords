@@ -157,7 +157,7 @@ if [ "${FIRST_RUN}" == "true" ]; then
 echo "...........ords install adb..........." `date`
 
 #sometime is does not generate the configurations so first give one config command and then install adb
-#${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.username  ${ORDS_USER} 
+${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.username  ${ORDS_USER} 
 # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set standalone.static.path ${APEX_IMAGES} 
 # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.wallet.zip.path ${WALLET_PATH}
 # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set  db.wallet.zip.service ${DB_SERVICE_NAME}

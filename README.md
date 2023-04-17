@@ -33,6 +33,12 @@ Buiding Image & loggin
 https://forums.docker.com/t/capture-ouput-of-docker-build-into-a-log-file/123178 
 
 ```
+[root@host] su - docker_user
+[docker_user@host]
+cd /tmp
+git clone 
+cd ords
+
 docker build --no-cache --progress=plain -t ol8_ords:latest . 2>&1 | tee build.log
 
 ```
@@ -61,6 +67,7 @@ docker run -dit --name ol8_ords_con \
              -e "ORDS_USER_PASSWORD=Pandora_1234" \
              -e "GATEWAY_USER=ORDS_PLSQL_GATEWAY2" \
              -e "GATEWAY_USER_PASSWORD=Pandora_1234" \
+             -v /home/docker_user/volumes/ol_ords_tomcat:/u01/config \
             ol8_ords:latest
 
 

@@ -33,9 +33,10 @@ mkdir -p ${ORDS_HOME}
 cd ${ORDS_HOME}
 unzip -oq ${SOFTWARE_DIR}/${ORDS_SOFTWARE}
 rm -f ${SOFTWARE_DIR}/${ORDS_SOFTWARE}
+
 mkdir -p ${CONFIG_HOME}/logs
 mkdir -p ${CONFIG_HOME}/wallet
-mkdir -p ${CONFIG_HOME}/wallet/wallet_cache
+mkdir -p ${CONFIG_HOME}/wallet_cache
 
 
 
