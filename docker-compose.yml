@@ -9,7 +9,7 @@ services:
     # Either Image OR build (from dockerfile)
     #  image: ol8_ords:latest
     build:
-      context: .
+      context: ./ords
       dockerfile: ./ords/Dockerfile
     container_name: ol8_ords_con1
     #    environment:
