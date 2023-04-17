@@ -44,10 +44,10 @@ FROM oraclelinux:8-slim
 LABEL maintainer="yasirali.wizerp@gmail.com"
 # ------------------------------------------------------------------------------
 # Define fixed (build time) environment variables.
-ENV JAVA_SOFTWARE="OpenJDK11U-jdk_x64_linux_hotspot_11.0.18_10.tar.gz"          \
-    TOMCAT_SOFTWARE="apache-tomcat-9.0.71.tar.gz"                              \
+ENV JAVA_SOFTWARE="jdk-17_linux-x64_bin.rpm"          \
+    TOMCAT_SOFTWARE="apache-tomcat-9.0.73.tar.gz"                              \
     ORDS_SOFTWARE="ords-latest.zip"                                            \
-    APEX_SOFTWARE="apex_22.2_en.zip"                                           \ 
+    APEX_SOFTWARE="apex.zip"                                           \ 
     SQLCL_SOFTWARE="sqlcl-latest.zip"                                          \
     SOFTWARE_DIR="/u01/software"                                               \
     SCRIPTS_DIR="/u01/scripts"                                                 \
@@ -84,7 +84,13 @@ ENV DB_HOSTNAME="localhost"                                           \
     AJP_ADDRESS="::1"                                                          \
     APEX_IMAGES_REFRESH="false"                                                \
     PROXY_IPS="123.123.123.123\|123.123.123.124"                               \
-    JAVA_OPTS="-Dconfig.url=${ORDS_CONF} -Xms1024M -Xmx1024M"
+    JAVA_OPTS="-Dconfig.url=${ORDS_CONF} -Ddb.wallet.cache=${ORDS_CONF}/wallet_cache  -Xms1024M -Xmx1024M"
+#-Duser.timezone=UTC -Ddb.wallet.cache=wallet_cache- -Dsecurity.forceHTTPS=true -Dorg.eclipse.jetty.server.Request.maxFormContentSize=3000000
+
+ADD https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm ${SOFTWARE_DIR}
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.73/bin/apache-tomcat-9.0.73.tar.gz ${SOFTWARE_DIR}
+ADD https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-latest.zip ${SOFTWARE_DIR} 
+ADD https://download.oracle.com/otn_software/java/ords/ords-latest.zip ${SOFTWARE_DIR}
 
 
 # ------------------------------------------------------------------------------

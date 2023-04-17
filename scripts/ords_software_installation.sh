@@ -6,14 +6,15 @@ groupadd -g 1042 docker_fg
 useradd tomcat -u 501 -G docker_fg
 
 
-echo "Java setup."
-mkdir -p /u01/java
-cd /u01/java
-tar -xzf ${SOFTWARE_DIR}/${JAVA_SOFTWARE}
-rm -f ${SOFTWARE_DIR}/${JAVA_SOFTWARE}
-TEMP_FILE=`ls`
-ln -s ${TEMP_FILE} latest
+# echo "Java setup."
+# mkdir -p /u01/java
+# cd /u01/java
+# tar -xzf ${SOFTWARE_DIR}/${JAVA_SOFTWARE}
+# rm -f ${SOFTWARE_DIR}/${JAVA_SOFTWARE}
+# TEMP_FILE=`ls`
+# ln -s ${TEMP_FILE} latest
 
+# rpm -Uvh ${SOFTWARE_DIR}/${JAVA_SOFTWARE}
 
 
 echo "Tomcat setup."
@@ -58,12 +59,26 @@ cd /u01
 unzip -oq ${SOFTWARE_DIR}/${SQLCL_SOFTWARE}
 rm -f ${SOFTWARE_DIR}/${SQLCL_SOFTWARE}
 
+cd ${SOFTWARE_DIR}
 echo "Setting TNS_ADMIN"
 mkdir -p ${TNS_ADMIN}
 cp wallet.zip ${TNS_ADMIN}/
 cd ${TNS_ADMIN}
 unzip -oq wallet.zip
 rm -f ${TNS_ADMIN}/wallet.zip
+
+echo "******************************************************************************"
+echo "Renaming apex_version.zip" to apex.zip
+echo "******************************************************************************"
+cd ${SOFTWARE_DIR}
+n=1;
+for name in ${SOFTWARE_DIR}/apex*.zip
+do
+ new=$(printf "apex%01d.zip" ${n})
+ mv -i -- "$name" "$new"
+ n=$((n+1))
+done
+mv -if apex1.zip apex.zip 2>/dev/null; true
 
 
 echo "APEX Images."
