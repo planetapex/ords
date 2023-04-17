@@ -1,0 +1,73 @@
+
+
+export _JAVA_OPTIONS="-Dconfig.url=/u01/config/ords -Ddb.wallet.cache=/u01/config/ords/wallet_cache  -Xms1024M -Xmx1024M"
+
+./ords --config /u01/config/ords install adb --admin-user ADMIN --db-user ORDS_PUBLIC_USER2 --gateway-user ORDS_PLSQL_GATEWAY2 --wallet /u01/config/ords/wallet/wallet.zip --wallet-service-name neoranch_high --password-stdin <<EOF
+Pandora_1234
+Pandora_1234
+Pandora_1234
+EOF 
+
+ords install adb --admin-user <DATABASE USER> --db-user <DATABASE USER> --gateway-user <DATABASE
+      USER> --wallet <PATH> --wallet-service-name <NET SERVICE NAME> --feature-sdw <BOOLEAN> --log-folder
+      <FOLDER> --password-stdin < filename.txt
+
+
+ords install adb --admin-user <DATABASE USER> --db-user <DATABASE USER> --gateway-user <DATABASE USER>  
+--wallet <PATH> --wallet-service-name <NET SERVICE NAME> --feature-sdw <BOOLEAN> --log-folder <FOLDER> 
+--password-stdin << EOF
+<PASSWORD FOR admin-user>
+<PASSWORD FOR db-user>
+<PASSWORD FOR gateway-user>
+EOF
+
+
+
+  ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb \
+       --admin-user ${SYS_USER} \
+       --db-user ${ORDS_USER} \
+       --gateway-user ${GATEWAY_USER} \
+       --log-folder ${ORDS_CONF}/logs \
+       --feature-db-api true \
+       --feature-rest-enabled-sql true \
+       --feature-sdw true \       
+       --gateway-mode proxied \       
+       --wallet ${} \
+       --wallet-service-name ${DB_SERVICE_NAME} \      
+       --password-stdin <<EOF
+${SYS_USER_PASSWORD}
+${ORDS_USER_PASSWORD}
+${GATEWAY_USER_PASSWORD}
+EOF
+
+
+
+  ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install \
+       --log-folder ${ORDS_CONF}/logs \
+       --admin-user SYS \
+       --db-hostname ${DB_HOSTNAME} \
+       --db-port ${DB_PORT} \
+       --db-servicename ${DB_SERVICE} \
+       --feature-db-api true \
+       --feature-rest-enabled-sql true \
+       --feature-sdw true \
+       --gateway-mode proxied \
+       --gateway-user APEX_PUBLIC_USER \
+       --proxy-user \
+       --password-stdin <<EOF
+${SYS_PASSWORD}
+${APEX_LISTENER_PASSWORD}
+EOF
+
+
+
+
+
+
+
+    SYS_USER="ADMIN"      \
+    SYS_USER_PASSWORD="ApexPassword1"   \
+    ORDS_USER="ORDS_PUBLIC_USER2" \
+    ORDS_USER_PASSWORD="ApexPassword1"  \
+    GATEWAY_USER="ORDS_PLSQL_GATEWAY2"  \
+    GATEWAY_USER_PASSWORD="ApexPassword1"  \           

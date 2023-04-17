@@ -33,9 +33,11 @@ mkdir -p ${ORDS_HOME}
 cd ${ORDS_HOME}
 unzip -oq ${SOFTWARE_DIR}/${ORDS_SOFTWARE}
 rm -f ${SOFTWARE_DIR}/${ORDS_SOFTWARE}
-mkdir -p ${ORDS_CONF}/logs
-mkdir -p ${ORDS_CONF}/wallet
-mkdir -p ${ORDS_CONF}/wallet_cache
+mkdir -p ${CONFIG_HOME}/logs
+mkdir -p ${CONFIG_HOME}/wallet
+mkdir -p ${CONFIG_HOME}/wallet/wallet_cache
+
+
 
 
 
@@ -53,7 +55,7 @@ do
  n=$((n+1))
 done
 mv -if wallet1.zip wallet.zip 
-cp ${SOFTWARE_DIR}/wallet.zip ${ORDS_CONF}/wallet/wallet.zip
+cp ${SOFTWARE_DIR}/wallet.zip ${CONFIG_HOME}/wallet/wallet.zip
 #2>/dev/null; true
 
 

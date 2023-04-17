@@ -52,8 +52,9 @@ docker network create ords_network
 docker run -dit --name ol8_ords_con \
              -p 8080:8080 -p 8443:8443 \
              --network=ords_network \
-              -e "DB_SERVICE_NAME=neoranch_high"  \
-              -e "SYS_USER=ADMIN" \
+             -e "HOST_NAME=localhost"  \
+             -e "DB_SERVICE_NAME=neoranch_high"  \
+             -e "SYS_USER=ADMIN" \
              -e "SYS_USER_PASSWORD=Pandora_1234" \
              -e "SETUP_ORDS_USERS=No" \
              -e "ORDS_USER=ORDS_PUBLIC_USER2" \

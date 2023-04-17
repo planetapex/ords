@@ -16,11 +16,7 @@
 # Example build and run. Assumes Docker network called "my_network" to connect to DB.
 #
 
-# For JDK installation we have following options
-#1) installing Package java-17-openjdk in install_os_pacakges.sh and thus JAVA_HOME already set
-# so commentout code in ords_software_install.sh
-#2) using targ.gz
-#3) using rpm install agains JAVA_HOME automatically set
+
 # docker build -t ol8_ords:latest .
 # docker build --squash -t ol8_ords:latest .
 # Podman
@@ -59,6 +55,7 @@ ENV JAVA_SOFTWARE="jdk-17_linux-x64_bin.rpm"          \
     SCRIPTS_DIR="/u01/scripts"                                                 \
     KEYSTORE_DIR="/u01/keystore"                                               \
     ORDS_HOME="/u01/ords"                                                      \
+    CONFIG_HOME="/u01/config" \
     ORDS_CONF="/u01/config/ords"                                               \
     #JAVA_HOME="/u01/java/latest"                                               \
     CATALINA_HOME="/u01/tomcat/latest"                                         \
@@ -67,7 +64,8 @@ ENV JAVA_SOFTWARE="jdk-17_linux-x64_bin.rpm"          \
 
 # ------------------------------------------------------------------------------
 # Define config (runtime) environment variables.
-ENV DB_HOSTNAME="localhost"                                           \
+ENV HOSTNAME="localhost" \    
+    DB_HOSTNAME="localhost"                                           \
     SYS_USER="ADMIN"      \
     SYS_USER_PASSWORD="ApexPassword1"   \
     ORDS_USER="ORDS_PUBLIC_USER2" \
@@ -90,12 +88,13 @@ ENV DB_HOSTNAME="localhost"                                           \
     AJP_ADDRESS="::1"                                                          \
     APEX_IMAGES_REFRESH="false"                                                \
     PROXY_IPS="123.123.123.123\|123.123.123.124"                               \
-    JAVA_OPTS="-Dconfig.url=${ORDS_CONF} -Ddb.wallet.cache=${ORDS_CONF}/wallet_cache  -Xms1024M -Xmx1024M"
+    JAVA_OPTS="-Dconfig.url=${ORDS_CONF} -Ddb.wallet.cache=${CONFIG_HOME}/wallet/wallet_cache  -Xms1024M -Xmx1024M" \
+    _JAVA_OPTIONS="-Dconfig.url=${ORDS_CONF} -Ddb.wallet.cache=${CONFIG_HOME}/wallet/wallet_cache  -Xms1024M -Xmx1024M" 
 #-Duser.timezone=UTC -Ddb.wallet.cache=wallet_cache- -Dsecurity.forceHTTPS=true -Dorg.eclipse.jetty.server.Request.maxFormContentSize=3000000
 
 RUN mkdir -p ${SOFTWARE_DIR}
 
-ADD https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm ${SOFTWARE_DIR}
+#ADD https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm ${SOFTWARE_DIR}
 ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.73/bin/apache-tomcat-9.0.73.tar.gz ${SOFTWARE_DIR}
 ADD https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-latest.zip ${SOFTWARE_DIR}
 ADD https://download.oracle.com/otn_software/java/ords/ords-latest.zip ${SOFTWARE_DIR}

@@ -27,7 +27,7 @@ echo "Check DB is available." `date`
 echo "******************************************************************************"
 export PATH=${PATH}:${JAVA_HOME}/bin:${ORDS_HOME}/bin
 export TNS_ADMIN=${TNS_ADMIN}
-export _JAVA_OPTIONS=${JAVA_OPTS}
+#export _JAVA_OPTIONS=${JAVA_OPTS}
 export ORDS_CONFIG=${ORDS_CONF}
 
 
@@ -156,7 +156,14 @@ if [ "${FIRST_RUN}" == "true" ]; then
 
 echo "...........ords install adb..........." `date`
 
-${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb --admin-user ${SYS_USER} --db-user ${ORDS_USER} --gateway-user ${GATEWAY_USER} --wallet ${ORDS_CONF}/wallet/wallet.zip --wallet-service-name ${DB_SERVICE_NAME} --feature-sdw true --log-folder ${ORDS_CONF}/logs --password-stdin <<EOF
+#sometime is does not generate the configurations so first give one config command and then install adb
+#${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.username  ${ORDS_USER} 
+# ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set standalone.static.path ${APEX_IMAGES} 
+# ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.wallet.zip.path ${WALLET_PATH}
+# ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set  db.wallet.zip.service ${DB_SERVICE_NAME}
+# ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set plsql.gateway.mode proxied
+
+${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb --admin-user ${SYS_USER} --db-user ${ORDS_USER} --gateway-user ${GATEWAY_USER} --wallet ${CONFIG_HOME}/wallet/wallet.zip --wallet-service-name ${DB_SERVICE_NAME} --feature-sdw true --log-folder ${CONFIG_HOME}/logs --password-stdin <<EOF
 ${SYS_USER_PASSWORD}
 ${ORDS_USER_PASSWORD}
 ${GATEWAY_USER_PASSWORD}
