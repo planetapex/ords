@@ -18,7 +18,7 @@ services:
 #    env_file: ords_instanc1.env      
     hostname: ${HOST_NAME}
     networks:
-      - ords_ords_network
+      - ords_network
     ports:
       - 8080:8080
       - 8443:8443
