@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 volumes:
   ords_server_config_vol:
@@ -14,7 +14,7 @@ services:
     container_name: ol8_ords_con1
     #    environment:
     #      - USER=mike
-    env_file: ords_instanc1.env      
+#    env_file: ords_instanc1.env      
     hostname: ${HOST_NAME}
     networks:
       - ords_network
