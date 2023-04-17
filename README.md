@@ -46,6 +46,15 @@ Since we will be using external host volume for persistent storage, the build ex
 Buiding Image & loggin
 https://forums.docker.com/t/capture-ouput-of-docker-build-into-a-log-file/123178 
 
+
+
+```
+docker-compose up --force-recreate -d 2>&1 | tee build.log
+docker-compose build
+docker-compose run
+
+
+
 ```
 [root@host] su - docker_user
 [docker_user@host]

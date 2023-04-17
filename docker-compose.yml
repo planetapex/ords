@@ -15,7 +15,7 @@ services:
     container_name: ol8_ords_con1
     #    environment:
     #      - USER=mike
-#    env_file: ords_instanc1.env      
+    env_file: .env      
     hostname: ${HOST_NAME}
     networks:
       - sever_network
