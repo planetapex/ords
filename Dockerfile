@@ -88,8 +88,8 @@ ENV HOSTNAME="localhost" \
     AJP_ADDRESS="::1"                                                          \
     APEX_IMAGES_REFRESH="false"                                                \
     PROXY_IPS="123.123.123.123\|123.123.123.124"                               \
-    JAVA_OPTS="-Dconfig.url=${ORDS_CONF} -Ddb.wallet.cache=${CONFIG_HOME}/wallet_cache  -Xms1024M -Xmx1024M" \
-    _JAVA_OPTIONS="-Dconfig.url=${ORDS_CONF} -Ddb.wallet.cache=${CONFIG_HOME}/wallet_cache  -Xms1024M -Xmx1024M" 
+    JAVA_OPTS="-Dconfig.url=${ORDS_CONF}/ -Ddb.wallet.cache=${CONFIG_HOME}/wallet_cache  -Xms1024M -Xmx1024M" \
+    _JAVA_OPTIONS="-Dconfig.url=${ORDS_CONF}/ -Ddb.wallet.cache=${CONFIG_HOME}/wallet_cache  -Xms1024M -Xmx1024M" 
 #-Duser.timezone=UTC -Ddb.wallet.cache=wallet_cache- -Dsecurity.forceHTTPS=true -Dorg.eclipse.jetty.server.Request.maxFormContentSize=3000000
 
 RUN mkdir -p ${SOFTWARE_DIR}
