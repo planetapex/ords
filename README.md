@@ -29,17 +29,21 @@ $
 ```
 
 
-Buiding Image
+Buiding Image & loggin
+https://forums.docker.com/t/capture-ouput-of-docker-build-into-a-log-file/123178 
 
 ```
-docker build --progress=plain  -t ol8_ords:latest . | tee /logs/build.log
+docker build --no-cache --progress=plain ol8_ords:latest . 2>&1 | tee build.log
 
 ```
+
 
 
 If you are using an external host volume for persistent storage, the build expects it to owned by a group with the group ID of 1042. This is described here.
 
-
+```
+docker network create ords_network
+```
 
 
 
@@ -47,14 +51,30 @@ If you are using an external host volume for persistent storage, the build expec
 ```
 docker run -dit --name ol8_ords_con \
              -p 8080:8080 -p 8443:8443 \
-             --network=my_network \
-             -e "SYS_USER=ADMIN" \
+             --network=ords_network \
+              -e "DB_SERVICE_NAME=neoranch_high"  \
+              -e "SYS_USER=ADMIN" \
              -e "SYS_USER_PASSWORD=Pandora_1234" \
+             -e "SETUP_ORDS_USERS=No" \
              -e "ORDS_USER=ORDS_PUBLIC_USER2" \
              -e "ORDS_USER_PASSWORD=Pandora_1234" \
              -e "GATEWAY_USER=ORDS_PLSQL_GATEWAY2" \
              -e "GATEWAY_USER_PASSWORD=Pandora_1234" \
-           ol8_ords:latest
+            ol8_ords:latest
+
+
+```
+
+For Portrainer
+
+```
+SYS_USER=ADMIN
+SYS_USER_PASSWORD=Pandora_1234
+SETUP_ORDS_USERS=No
+ORDS_USER=ORDS_PUBLIC_USER2
+ORDS_USER_PASSWORD=Pandora_1234
+GATEWAY_USER=ORDS_PLSQL_GATEWAY2
+GATEWAY_USER_PASSWORD=Pandora_1234
 
 
 ```

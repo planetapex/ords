@@ -43,14 +43,17 @@ mkdir -p ${ORDS_CONF}/wallet_cache
 echo "******************************************************************************"
 echo "Renaming Wallet to wallet1,2,3.zip and then will be using wallet.zip"
 echo "******************************************************************************"
+cd ${SOFTWARE_DIR}
 n=1;
 for name in ${SOFTWARE_DIR}/Wallet*.zip
 do
  new=$(printf "wallet%01d.zip" ${n})
+ echo "new file name ${new} ${n}"
  mv -i -- "$name" "$new"
  n=$((n+1))
 done
-mv -if wallet1.zip wallet.zip 2>/dev/null; true
+mv -if wallet1.zip wallet.zip 
+#2>/dev/null; true
 
 
 
@@ -62,10 +65,10 @@ rm -f ${SOFTWARE_DIR}/${SQLCL_SOFTWARE}
 cd ${SOFTWARE_DIR}
 echo "Setting TNS_ADMIN"
 mkdir -p ${TNS_ADMIN}
-cp wallet.zip ${TNS_ADMIN}/
+cp ${SOFTWARE_DIR}/wallet.zip ${TNS_ADMIN}/wallet.zip
 cd ${TNS_ADMIN}
 unzip -oq wallet.zip
-rm -f ${TNS_ADMIN}/wallet.zip
+#rm -f ${TNS_ADMIN}/wallet.zip
 
 echo "******************************************************************************"
 echo "Renaming apex_version.zip" to apex.zip
@@ -79,7 +82,8 @@ do
  mv -i -- "$name" "$new"
  n=$((n+1))
 done
-mv -if apex1.zip apex.zip 2>/dev/null; true
+mv -if apex1.zip apex.zip 
+#2>/dev/null; true
 
 
 echo "APEX Images."
