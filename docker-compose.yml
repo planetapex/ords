@@ -1,0 +1,34 @@
+version: '3.8'
+
+volumes:
+  ords_server_config_vol:
+    external: true
+
+services:
+  ords_instance1:
+    # Either Image OR build (from dockerfile)
+    #  image: ol8_ords:latest
+    build:
+      context: .
+      dockerfile: ./ords/Dockerfile
+    container_name: ol8_ords_con1
+    #    environment:
+    #      - USER=mike
+    env_file:
+      - ords_instanc1.env
+    hostname: ${HOST_NAME}
+    networks:
+      - ords_network
+    ports:
+      - 8080:8080
+      - 8443:8443
+    volumes:
+      - ords_server_config_vol:/u01/config
+    labels:
+      # labels in Compose file instead of Dockerfile
+      - instance-name: ol8_ords_con1
+
+networks:
+  ords_network:
+
+

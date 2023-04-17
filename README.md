@@ -1,5 +1,11 @@
 # Oracle REST Data Services (ORDS) on Docker
 
+Apache Tomcat 9 (as ORDS is using JAX Servlet and not Jakarta Servlets)
+Oracle JDK 17
+ORDS Latest **Current at 23.1 , will wait until it fails
+
+
+
 The following article provides a description of this Dockerfile.
 
 [Docker : Oracle REST Data Services (ORDS) on Docker](https://oracle-base.com/articles/linux/docker-oracle-rest-data-services-ords-on-docker)
@@ -55,7 +61,7 @@ docker network create ords_network
 
 
 ```
-docker run -dit --name ol8_ords_con \
+docker run -dit --hostname ords_instance1  --name ol8_ords_con \
              -p 8080:8080 -p 8443:8443 \
              --network=ords_network \
              -e "HOST_NAME=localhost"  \
@@ -83,6 +89,16 @@ ORDS_USER=ORDS_PUBLIC_USER2
 ORDS_USER_PASSWORD=Pandora_1234
 GATEWAY_USER=ORDS_PLSQL_GATEWAY2
 GATEWAY_USER_PASSWORD=Pandora_1234
+
+
+```
+Verify host names
+
+```
+docker container ls
+ docker exec <container name> hostname
+ 
+docker exec ol8_ords_con hostname
 
 
 ```

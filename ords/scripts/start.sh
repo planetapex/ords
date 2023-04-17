@@ -137,13 +137,13 @@ if [ "${FIRST_RUN}" == "true" ]; then
   cd ${ORDS_HOME}
 
 
-  if [ "${SETUP_ORDS_USERS}" ==  "Yes" ]; then
+  if [ "${CREATE_ORDS_USERS}" ==  "Yes" ]; then
     echo "******************************************************************************"
     echo "Creating ORDS Public users" `date`
     echo "******************************************************************************"
     create_ords_users ${CONNECTION}
     if [ ${ORDS_USER_CREATED} -eq 1 ]; then
-     echo "ORDS Public users created successfully" `date`
+     echo "......ORDS Public users created successfully......." `date`
 
     fi;
 
@@ -162,39 +162,87 @@ if [ "${FIRST_RUN}" == "true" ]; then
 
 
 
-echo "...........ords install adb..........." `date`
+  echo "...........Configuring ords ..........." `date`
 
-#sometime is does not generate the configurations so first give one config command and then install adb
-#${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.username  ${ORDS_USER} 
-# ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set standalone.static.path ${APEX_IMAGES} 
-# ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.wallet.zip.path ${WALLET_PATH}
-# ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set  db.wallet.zip.service ${DB_SERVICE_NAME}
-# ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set plsql.gateway.mode proxied
+  if [ ! -d ${ORDS_CONF} ]; then
 
-${ORDS_HOME}/bin/ords --config ${ORDS_CONF}/ install adb --admin-user ${SYS_USER} --db-user ${ORDS_USER} --gateway-user ${GATEWAY_USER} --wallet ${TNS_ADMIN}/wallet.zip --wallet-service-name ${DB_SERVICE_NAME} --feature-sdw true --log-folder ${CONFIG_HOME}/logs --password-stdin <<EOF
-${SYS_USER_PASSWORD}
-${ORDS_USER_PASSWORD}
-${GATEWAY_USER_PASSWORD}
-EOF
+  #sometime is does not generate the configurations so first give one config command and then install adb
+  #${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.username  ${ORDS_USER} 
+  # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set standalone.static.path ${APEX_IMAGES} 
+  # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.wallet.zip.path ${WALLET_PATH}
+  # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set  db.wallet.zip.service ${DB_SERVICE_NAME}
+  # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set plsql.gateway.mode proxied
 
-#  ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb \
-#        --admin-user ${SYS_USER} \
-#        --db-user ${ORDS_USER} \
-#        --gateway-user ${GATEWAY_USER} \
-#        --log-folder ${ORDS_CONF}/logs \
-#        --feature-db-api true \
-#        --feature-rest-enabled-sql true \
-#        --feature-sdw true \       
-#        --gateway-mode proxied \       
-#        --wallet ${ORDS_CONF}/wallet/wallet.zip \
-#        --wallet-service-name ${DB_SERVICE_NAME} \      
-#        --password-stdin <<EOF
-# ${SYS_USER_PASSWORD}
-# ${ORDS_USER_PASSWORD}
-# ${GATEWAY_USER_PASSWORD}
-# EOF
+  ${ORDS_HOME}/bin/ords --config ${ORDS_CONF}/ install adb --admin-user ${SYS_USER} --db-user ${ORDS_USER} --gateway-user ${GATEWAY_USER} --wallet ${TNS_ADMIN}/wallet.zip --wallet-service-name ${DB_SERVICE_NAME} --feature-sdw true --log-folder ${CONFIG_HOME}/logs --password-stdin <<EOF
+  ${SYS_USER_PASSWORD}
+  ${ORDS_USER_PASSWORD}
+  ${GATEWAY_USER_PASSWORD}
+  EOF
+  
 
-  cp ords.war ${CATALINA_BASE}/webapps/
+  #  ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb \
+  #        --admin-user ${SYS_USER} \
+  #        --db-user ${ORDS_USER} \
+  #        --gateway-user ${GATEWAY_USER} \
+  #        --log-folder ${ORDS_CONF}/logs \
+  #        --feature-db-api true \
+  #        --feature-rest-enabled-sql true \
+  #        --feature-sdw true \       
+  #        --gateway-mode proxied \       
+  #        --wallet ${ORDS_CONF}/wallet/wallet.zip \
+  #        --wallet-service-name ${DB_SERVICE_NAME} \      
+  #        --password-stdin <<EOF
+  # ${SYS_USER_PASSWORD}
+  # ${ORDS_USER_PASSWORD}
+  # ${GATEWAY_USER_PASSWORD}
+  # EOF
+  # instead of copy we will use the ords command
+  # cp ords.war ${CATALINA_BASE}/webapps/
+  
+  ords --config  ${ORDS_CONF}/ war ${CATALINA_BASE}/webapps/${ORDS_PATH_PREFIX}.war
+  fi
+
+fi
+
+if [ "${FIRST_RUN}" != "true"  &&  "${RECONFIGURE_ORDS}" == "Yes"]; then
+
+echo "******************************************************************************"
+  # echo "Reconfiguring ORDS based on the new values Provided" `date`
+  # echo "******************************************************************************"
+  
+  #sometime is does not generate the configurations so first give one config command and then install adb
+  #${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.username  ${ORDS_USER} 
+  # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set standalone.static.path ${APEX_IMAGES} 
+  # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set db.wallet.zip.path ${WALLET_PATH}
+  # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set  db.wallet.zip.service ${DB_SERVICE_NAME}
+  # ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} config set plsql.gateway.mode proxied
+
+  ${ORDS_HOME}/bin/ords --config ${ORDS_CONF}/ install adb --admin-user ${SYS_USER} --db-user ${ORDS_USER} --gateway-user ${GATEWAY_USER} --wallet ${TNS_ADMIN}/wallet.zip --wallet-service-name ${DB_SERVICE_NAME} --feature-sdw true --log-folder ${CONFIG_HOME}/logs --password-stdin <<EOF
+  ${SYS_USER_PASSWORD}
+  ${ORDS_USER_PASSWORD}
+  ${GATEWAY_USER_PASSWORD}
+  EOF
+
+  #  ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb \
+  #        --admin-user ${SYS_USER} \
+  #        --db-user ${ORDS_USER} \
+  #        --gateway-user ${GATEWAY_USER} \
+  #        --log-folder ${ORDS_CONF}/logs \
+  #        --feature-db-api true \
+  #        --feature-rest-enabled-sql true \
+  #        --feature-sdw true \       
+  #        --gateway-mode proxied \       
+  #        --wallet ${ORDS_CONF}/wallet/wallet.zip \
+  #        --wallet-service-name ${DB_SERVICE_NAME} \      
+  #        --password-stdin <<EOF
+  # ${SYS_USER_PASSWORD}
+  # ${ORDS_USER_PASSWORD}
+  # ${GATEWAY_USER_PASSWORD}
+  # EOF
+  #instead of copy we will use the ords command
+  # cp ords.war ${CATALINA_BASE}/webapps/
+  ords --config  ${ORDS_CONF}/ war ${CATALINA_BASE}/webapps/${ORDS_PATH_PREFIX}.war
+ 
 fi
 
 echo "...........keystore.jks ..........." `date`
