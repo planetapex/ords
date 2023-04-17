@@ -25,9 +25,10 @@ trap gracefulshutdown SIGKILL
 echo "******************************************************************************"
 echo "Check DB is available." `date`
 echo "******************************************************************************"
-export PATH=${PATH}:${JAVA_HOME}/bin
+export PATH=${PATH}:${JAVA_HOME}/bin:${ORDS_HOME}/bin
 export TNS_ADMIN=${TNS_ADMIN}
 export _JAVA_OPTIONS=${JAVA_OPTS}
+export ORDS_CONFIG=${ORDS_CONF}
 
 
 
@@ -140,25 +141,22 @@ if [ "${FIRST_RUN}" == "true" ]; then
 
   fi;
   
-   echo "...........wallet.zip..........." `date`
+  #  echo "...........wallet.zip..........." `date`
   
-  if [ ! -d ${ORDS_CONF}/wallet ]; then
-  echo "******************************************************************************"
-  echo "Copy wallet.zip to ords_conf/wallet" `date`
-  echo "******************************************************************************"
-  cp ${SOFTWARE_DIR}/wallet.zip ${ORDS_CONF}/wallet/wallet.zip
-  rm -f ${SOFTWARE_DIR}/wallet*.zip
-  fi;
+  # if [ ! -d ${ORDS_CONF}/wallet ]; then
+  # echo "******************************************************************************"
+  # echo "Copy wallet.zip to ords_conf/wallet" `date`
+  # echo "******************************************************************************"
+  # cp ${SOFTWARE_DIR}/wallet.zip ${ORDS_CONF}/wallet/wallet.zip
+  # rm -f ${SOFTWARE_DIR}/wallet*.zip
+  # fi;
 
 
 
-export ORDS_CONFIG=${ORDS_CONF}
 
 echo "...........ords install adb..........." `date`
 
-${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb --admin-user ${SYS_USER} --db-user ${ORDS_USER} --gateway-user ${GATEWAY_USER}  
---wallet ${ORDS_CONF}/wallet/wallet.zip --wallet-service-name ${DB_SERVICE_NAME} --feature-sdw true --log-folder ${ORDS_CONF}/logs 
---password-stdin << EOF
+${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb --admin-user ${SYS_USER} --db-user ${ORDS_USER} --gateway-user ${GATEWAY_USER} --wallet ${ORDS_CONF}/wallet/wallet.zip --wallet-service-name ${DB_SERVICE_NAME} --feature-sdw true --log-folder ${ORDS_CONF}/logs --password-stdin <<EOF
 ${SYS_USER_PASSWORD}
 ${ORDS_USER_PASSWORD}
 ${GATEWAY_USER_PASSWORD}

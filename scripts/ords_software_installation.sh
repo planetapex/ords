@@ -53,6 +53,7 @@ do
  n=$((n+1))
 done
 mv -if wallet1.zip wallet.zip 
+cp ${SOFTWARE_DIR}/wallet.zip ${ORDS_CONF}/wallet/wallet.zip
 #2>/dev/null; true
 
 
