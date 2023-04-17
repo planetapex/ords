@@ -93,7 +93,7 @@ ENV HOSTNAME="localhost" \
     JAVA_OPTS="-Dconfig.url=${ORDS_CONF}/ -Ddb.wallet.cache=${CONFIG_HOME}/wallet_cache  -Xms1024M -Xmx1024M" \
     _JAVA_OPTIONS="-Dconfig.url=${ORDS_CONF}/ -Ddb.wallet.cache=${CONFIG_HOME}/wallet_cache  -Xms1024M -Xmx1024M" 
 #-Duser.timezone=UTC -Ddb.wallet.cache=wallet_cache- -Dsecurity.forceHTTPS=true -Dorg.eclipse.jetty.server.Request.maxFormContentSize=3000000
-
+WORKDIR /ords
 RUN mkdir -p ${SOFTWARE_DIR}
 
 #ADD https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm ${SOFTWARE_DIR}
