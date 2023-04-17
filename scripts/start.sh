@@ -27,6 +27,8 @@ echo "Check DB is available." `date`
 echo "******************************************************************************"
 export PATH=${PATH}:${JAVA_HOME}/bin
 export TNS_ADMIN=${TNS_ADMIN}
+export _JAVA_OPTIONS=${_JAVA_OPTS}
+
 
 
 function check_db {
@@ -121,6 +123,8 @@ if [ "${FIRST_RUN}" == "true" ]; then
   echo "******************************************************************************"
   echo "Configure ORDS. Safe to run on DB with existing config." `date`
   echo "******************************************************************************"
+  
+  
   cd ${ORDS_HOME}
 
 
@@ -135,22 +139,22 @@ if [ "${FIRST_RUN}" == "true" ]; then
     fi;
 
   fi;
- 
-
- 
   
+   echo "...........wallet.zip..........." `date`
   
   if [ ! -d ${ORDS_CONF}/wallet ]; then
   echo "******************************************************************************"
-  echo "Copy wallet.zip to ords_conf/wallet" 
+  echo "Copy wallet.zip to ords_conf/wallet" `date`
   echo "******************************************************************************"
-  cp ${SOFTWARE_DIR}/wallet.zip ${ORDS_CONF}/wallet
+  cp ${SOFTWARE_DIR}/wallet.zip ${ORDS_CONF}/wallet/wallet.zip
   rm -f ${SOFTWARE_DIR}/wallet*.zip
   fi;
 
 
 
-  export ORDS_CONFIG=${ORDS_CONF}
+export ORDS_CONFIG=${ORDS_CONF}
+
+echo "...........ords install adb..........." `date`
 
 ${ORDS_HOME}/bin/ords --config ${ORDS_CONF} install adb --admin-user ${SYS_USER} --db-user ${ORDS_USER} --gateway-user ${GATEWAY_USER}  
 --wallet ${ORDS_CONF}/wallet/wallet.zip --wallet-service-name ${DB_SERVICE_NAME} --feature-sdw true --log-folder ${ORDS_CONF}/logs 
@@ -179,6 +183,8 @@ EOF
 
   cp ords.war ${CATALINA_BASE}/webapps/
 fi
+
+echo "...........keystore.jks ..........." `date`
 
 if [ ! -f ${KEYSTORE_DIR}/keystore.jks ]; then
   echo "******************************************************************************"
