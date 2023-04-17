@@ -5,12 +5,13 @@ volumes:
     external: true
 
 services:
-  ords_instance1:
+  instance1:
     # Either Image OR build (from dockerfile)
     #  image: ol8_ords:latest
     build:
       context: ./ords
  #     dockerfile: ./ords/Dockerfile
+    working_dir: /ords
     container_name: ol8_ords_con1
     #    environment:
     #      - USER=mike
