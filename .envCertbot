@@ -1,1 +1,3 @@
 HOST_NAME=certbot_instance1
+DOMAIN=property-finder.me
+EMAIL=yasirali.wizerp@gmail.com
