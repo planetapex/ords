@@ -10,12 +10,13 @@ services:
     #  image: ol8_ords:latest
     build:
       context: ./ords
- #     dockerfile: ./ords/Dockerfile
+    #     dockerfile: ./ords/Dockerfile
     working_dir: /ords
+    # entrypoint: composer
     container_name: ol8_ords_con1
     #    environment:
     #      - USER=mike
-    env_file: .envORDS      
+    env_file: .envORDSInstance1
     hostname: ${HOST_NAME}
     networks:
       - sever_network
@@ -23,11 +24,35 @@ services:
       - 8080:8080
       - 8443:8443
     volumes:
-      - ords_server_config_vol:/u01/config
-#    labels:
+      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config:/u01/config
+      #    labels:
       # labels in Compose file instead of Dockerfile
- #     - instance-name: ol8_ords_con1
-
+      #     - instance-name: ol8_ords_con1
+  webserver:
+    image: nginx:latest
+    container_name: nginx_con1
+    hostname: ${HOST_NAME}
+    env_file: .envNginx
+    networks:
+      - sever_network
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/nginx/:/etc/nginx/:ro
+      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/certbot/www:/var/www/certbot/:ro
+      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/certbot/conf/:/etc/nginx/ssl/:ro
+  certbot:
+    image: certbot/certbot:latest
+    container_name: certbot_con1
+    hostname: ${HOST_NAME}
+    env_file: .envCertbot
+    networks:
+      - sever_network
+    volumes:
+      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/certbot/www:/var/www/certbot/:rw
+      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/certbot/conf/:/etc/letsencrypt/:rw
 networks:
   sever_network:
 

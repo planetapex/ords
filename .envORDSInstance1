@@ -1,4 +1,5 @@
 HOST_NAME=ords_instance1
+ORDS_PATH_PREFIX=ords
 DB_SERVICE_NAME=neoranch_high
 SYS_USER=ADMIN
 SYS_USER_PASSWORD=Pandora_1234
