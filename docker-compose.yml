@@ -40,9 +40,9 @@ services:
       - 443:443
     restart: always
     volumes:
-      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/nginx/conf/:/etc/nginx/conf.d/:ro
-      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/certbot/www:/var/www/certbot/:ro
-      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/certbot/conf/:/etc/nginx/ssl/:ro
+      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/nginx/conf/:/etc/nginx/conf.d/:rw
+      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/certbot/www:/var/www/certbot/:rw
+      - /home/docker_user/volumes/ol_ords_tomcat_nginx_config/certbot/conf/:/etc/nginx/ssl/:rw
   certbot:
     image: certbot/certbot:latest
     container_name: certbot_con1
